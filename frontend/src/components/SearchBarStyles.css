@@ -1,0 +1,30 @@
+.search-container {
+  background-color: #ffff;
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+}
+.search-form {
+  gap: 5px;
+  justify-content: center;
+}
+
+.search-button {
+  border: 1px solid #ffff;
+  background-color: #f8ab00;
+  height: 3rem;
+  width: 15rem;
+  min-height: 44px;
+}
+.select {
+  max-width: 12rem;
+  min-width: 12rem;
+}
+@media screen and (max-width: 768px) {
+  .search-form {
+    display: flex;
+    flex-direction: column;
+  }
+}
