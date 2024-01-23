@@ -4,21 +4,22 @@ import Row from "react-bootstrap/Row";
 import { RoomContext } from "../context/RoomContext";
 import { useContext } from "react";
 
-const CardList = () => {
-  const { rooms } = useContext(RoomContext);
-
+const CardList = ({ rooms }) => {
   return (
     <div className="position-relative">
-      <Row xs={1} md={2} className="g-4 m-auto w-50">
+      <Row xs={1} md={2} className="g-4 m-auto w-60">
         {rooms.length > 0 ? (
           rooms.map((i, idx) => {
             return (
               <Col key={idx}>
                 <CardComponent
-                  title={i.type}
+                  roomNo={i.roomNo}
+                  title={i.title}
+                  typeId={i.typeId}
                   description={i.description}
                   price={i.price}
-                  roomid={i._id}
+                  image={i.image}
+                  amenities={i.amenities}
                 />
               </Col>
             );

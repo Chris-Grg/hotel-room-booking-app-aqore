@@ -9,7 +9,7 @@ const NavBarComponent = () => {
         <Navbar.Brand href="/">Hotel Room Finder</Navbar.Brand>
         <Nav className="me-auto">
           {/* <Nav.Link href="#home">Home</Nav.Link> */}
-          <Nav.Link href="/search">Browse</Nav.Link>
+          <Nav.Link href="/browse">Browse</Nav.Link>
         </Nav>
       </Container>
     </Navbar>

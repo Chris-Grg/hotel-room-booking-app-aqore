@@ -1,19 +1,19 @@
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 
 const ModalContext = createContext();
 
 const ModalProvider = ({ children }) => {
   const [modalShow, setModalShow] = useState(false);
-  const [activeModal, setActiveModal] = useState("");
+  const [activeModal, setActiveModal] = useState();
 
-  const openModal = (modalId) => {
-    setActiveModal(modalId);
+  const openModal = (roomNo) => {
+    setActiveModal(roomNo);
     setModalShow(true);
   };
 
   const closeModal = () => {
     setModalShow(false);
-    setActiveModal(null);
+    setActiveModal("");
   };
 
   return (

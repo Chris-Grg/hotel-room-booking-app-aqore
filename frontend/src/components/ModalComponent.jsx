@@ -9,13 +9,12 @@ function ModalComponent() {
   const { rooms, isLoading } = useContext(RoomContext);
   let activeRoom;
   {
-    isLoading && activeModal === "" ? (
+    isLoading && !activeModal ? (
       <></>
     ) : (
-      (activeRoom = rooms.find((i) => activeModal === i._id))
+      (activeRoom = rooms.find((i) => activeModal === i.roomNo))
     );
   }
-  console.log(activeRoom);
   return (
     <>
       {isLoading ? (
@@ -27,15 +26,22 @@ function ModalComponent() {
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered
+          onHide={closeModal}
         >
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              Title:{activeRoom ? activeRoom.type : "Unknown Type"}
+              {activeRoom ? activeRoom.title : "Loading title"}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Centered Modal</h4>
+            <h4>Description</h4>
             <p>{activeRoom ? activeRoom.description : ""}</p>
+            <h4>Amenities</h4>
+            <ul>
+              {activeRoom
+                ? activeRoom.amenities.map((i) => <li>{i}</li>)
+                : "Loading"}
+            </ul>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={closeModal}>Close</Button>

@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import "./SearchBarStyles.css";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { SearchContext } from "../context/SearchContext";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [selectValue, setSelectValue] = useState("");
+  const {
+    roomType,
+    checkInDate,
+    checkOutDate,
+    setCheckInDate,
+    setCheckOutDate,
+    setRoomType,
+  } = useContext(SearchContext);
+  const navigate = useNavigate();
+
+  const [startDate, setStartDate] = useState(checkInDate);
+  const [endDate, setEndDate] = useState(checkOutDate);
+  const [selectValue, setSelectValue] = useState(roomType);
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -22,11 +34,15 @@ const SearchBar = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(
-      `Start:${startDate.toISOString().split("T")[0]}, End:${
-        endDate.toISOString().split("T")[0]
-      }, Value:${selectValue}`
-    );
+    // alert(
+    //   `Start:${startDate.toISOString().split("T")[0]}, End:${
+    //     endDate.toISOString().split("T")[0]
+    //   }, Value:${selectValue}`
+    // );
+    setCheckInDate(startDate.toISOString().split("T")[0]);
+    setCheckOutDate(endDate.toISOString().split("T")[0]);
+    setRoomType(selectValue);
+    navigate("/search");
   };
 
   return (
@@ -63,7 +79,9 @@ const SearchBar = () => {
             startDate={startDate}
             endDate={endDate}
             minDate={startDate}
+            placeholderText="Check-out Date"
             className="mr-2"
+            dateFormat="yyyy-MM-dd"
           />
         </div>
         <Form.Select
@@ -74,10 +92,10 @@ const SearchBar = () => {
         >
           <option value="">Select type of room</option>
           <option value="1KB">1 King Bed</option>
-          <option value="2KB">2 Twin Beds</option>
-          <option value="1KBS">1 King Bed with Stupa View</option>
-          <option value="2KBS">2 King Beds with Stupa View</option>
-          <option value="1KBCD">1 King Bed with Club Access Deluxe</option>
+          <option value="2TB">2 Twin Beds</option>
+          <option value="1KBSV">1 King Bed with Stupa View</option>
+          {/* <option value="2KBS">2 King Beds with Stupa View</option> */}
+          <option value="1KBCAD">1 King Bed with Club Access Deluxe</option>
         </Form.Select>
         <Button
           variant="warning"

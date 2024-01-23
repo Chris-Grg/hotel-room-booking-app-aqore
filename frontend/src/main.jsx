@@ -6,13 +6,16 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ModalProvider } from "./context/ModalContext.jsx";
 import { RoomContextProvider } from "./context/RoomContext.jsx";
+import { SearchContextProvider } from "./context/SearchContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RoomContextProvider>
-      <ModalProvider>
-        <App />
-      </ModalProvider>
+      <SearchContextProvider>
+        <ModalProvider>
+          <App />
+        </ModalProvider>
+      </SearchContextProvider>
     </RoomContextProvider>
   </React.StrictMode>
 );

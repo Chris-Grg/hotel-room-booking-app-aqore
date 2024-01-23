@@ -4,23 +4,31 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import { ModalContext } from "../context/ModalContext";
 
-function CardComponent({ title, description, price, roomid }) {
+function CardComponent({
+  roomNo,
+  title,
+  typeId,
+  description,
+  price,
+  image,
+  amenities,
+}) {
   const { openModal } = useContext(ModalContext);
 
   return (
-    <Card style={{ width: "18rem" }}>
-      {/* <Card.Img
-        variant="top"
-        src={image}
-      /> */}
+    <Card className="w-100">
+      <Card.Img variant="top" src={image} />
       <Card.Body>
-        <Card.Title>{title}</Card.Title>
+        <Card.Title>
+          <p className="small font-weight-light">{roomNo} </p>
+          <span>{title}</span>
+        </Card.Title>
         <Card.Text className="text-truncate">{description}</Card.Text>
       </Card.Body>
       <ListGroup className="list-group-flush">
         <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
         <ListGroup.Item className="d-flex justify-content-between">
-          <span>B&B</span>
+          <span>Price per night</span>
           <span>${price}</span>
         </ListGroup.Item>
       </ListGroup>
@@ -28,7 +36,7 @@ function CardComponent({ title, description, price, roomid }) {
         <Button
           variant="warning"
           className="flex-grow-1"
-          onClick={() => openModal(roomid)}
+          onClick={() => openModal(roomNo)}
         >
           Book Now
         </Button>

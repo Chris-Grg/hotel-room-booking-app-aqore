@@ -2,7 +2,7 @@
   background-color: #ffff;
   position: sticky;
   top: 0;
-  z-index: 2000;
+  z-index: 2;
   display: flex;
   justify-content: center;
 }
@@ -26,5 +26,8 @@
   .search-form {
     display: flex;
     flex-direction: column;
+  }
+  .search-container {
+    position: relative;
   }
 }

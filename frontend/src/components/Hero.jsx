@@ -19,7 +19,6 @@ function Hero() {
           </p>
         </div>
       </Container>
-      <Footer />
     </>
   );
 }
