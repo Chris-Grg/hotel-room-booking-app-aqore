@@ -83,28 +83,59 @@ const getRoomByRoomNo = async (req, res, next) => {
 };
 
 const AddBookingsById = async (req, res, next) => {
-  const { bookingDate } = req.body;
-  const roomNo = req.params.pid;
-
-  let room;
-  try {
-    room = await Room.find({ roomNo: roomNo });
-  } catch (err) {
-    return next(error);
-  }
-
-  room.bookingDate.push(bookingDate);
+  const { roomNo, startDate, endDate } = req.body;
 
   try {
-    await Room.save();
-  } catch (err) {
-    return next(error);
-  }
+    const updatedRoom = await Room.findOneAndUpdate(
+      {
+        roomNo: roomNo,
+        bookingDate: {
+          $not: {
+            $elemMatch: {
+              start: { $gte: startDate, $lte: endDate },
+              end: { $gte: startDate, $lte: endDate },
+            },
+          },
+        },
+      },
+      { $push: { bookedDates: { start: startDate, end: endDate } } },
+      { new: true }
+    );
 
-  res.status(200).json({ room: room.toObject({ getters: true }) });
+    if (!updatedRoom) {
+      return res.status(409).json({
+        message: "Booking conflict! Dates overlap with existing bookings.",
+      });
+    }
+
+    res.status(200).json(updatedRoom);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+const DeleteBookingById = async (req, res, next) => {
+  const { roomNo, startDate, endDate } = req.body;
+
+  try {
+    const updatedRoom = await Room.findOneAndUpdate(
+      { roomNo: roomNo },
+      { $pull: { bookedDates: { start: startDate, end: endDate } } },
+      { new: true }
+    );
+
+    if (!updatedRoom) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    res.status(204).json({ message: "Deleted" }); // 204 No Content for successful deletion
+  } catch (err) {
+    return next(err);
+  }
 };
 
 exports.createRoom = createRoom;
 exports.getAllRooms = getAllRooms;
 exports.getRoomByRoomNo = getRoomByRoomNo;
 exports.AddBookingsById = AddBookingsById;
+exports.DeleteBookingById = DeleteBookingById;

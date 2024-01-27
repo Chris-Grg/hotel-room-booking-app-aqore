@@ -1,35 +1,41 @@
 const mongoose = require("mongoose");
 const Room = require("../models/room");
 
-const getAvailableRooms = async () => {
-  const { type, startDate, endDate } = req.body;
+const getAvailableRooms = async (req, res, next) => {
+  const { typeId, startDate, endDate } = req.body;
 
   let availableRooms;
   try {
-    // availableRooms = await Room.aggregate([
-    //   {
-    //     $match: {
-    //       bookedDates: {
-    //         $not: {
-    //           $elemMatch: {
-    //             $gte: startDate,
-    //             $lte: endDate,
-    //           },
-    //         },
-    //       },
-    //     },
-    //   },
-    //   {
-    //     $group: {
-    //       _id: "$type",
-    //       firstAvailable: { $first: "$$ROOT" },
-    //     },
-    //   },
-    // ]);
-    availableRooms = await Room.find({ type: type });
+    availableRooms = await Room.find({
+      typeId: typeId,
+      $and: [
+        {
+          bookedDates: {
+            $not: {
+              $elemMatch: {
+                $or: [
+                  {
+                    $and: [
+                      { start: { $gte: startDate } },
+                      { start: { $lte: endDate } },
+                    ],
+                  },
+                  {
+                    $and: [
+                      { end: { $gte: startDate } },
+                      { end: { $lte: endDate } },
+                    ],
+                  },
+                ],
+              },
+            },
+          },
+        },
+      ],
+    });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
-  res.json({ availableRooms });
+  res.json(availableRooms);
 };
 exports.getAvailableRooms = getAvailableRooms;

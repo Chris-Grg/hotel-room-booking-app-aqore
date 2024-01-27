@@ -4,6 +4,8 @@ import "./SearchBarStyles.css";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
+
 import { SearchContext } from "../context/SearchContext";
 import { useNavigate } from "react-router-dom";
 
@@ -18,9 +20,9 @@ const SearchBar = () => {
   } = useContext(SearchContext);
   const navigate = useNavigate();
 
-  const [startDate, setStartDate] = useState(checkInDate);
-  const [endDate, setEndDate] = useState(checkOutDate);
-  const [selectValue, setSelectValue] = useState(roomType);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [roomTypeLocal, setRoomTypeLocal] = useState(roomType);
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -30,18 +32,13 @@ const SearchBar = () => {
   };
   const handleSelectChange = (e) => {
     const selectV = e.target.value;
-    setSelectValue(selectV);
+    setRoomTypeLocal(selectV);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // alert(
-    //   `Start:${startDate.toISOString().split("T")[0]}, End:${
-    //     endDate.toISOString().split("T")[0]
-    //   }, Value:${selectValue}`
-    // );
-    setCheckInDate(startDate.toISOString().split("T")[0]);
-    setCheckOutDate(endDate.toISOString().split("T")[0]);
-    setRoomType(selectValue);
+    setCheckInDate(moment(startDate).format("YYYY-MM-DD"));
+    setCheckOutDate(moment(endDate).format("YYYY-MM-DD"));
+    setRoomType(roomTypeLocal);
     navigate("/search");
   };
 
@@ -87,7 +84,6 @@ const SearchBar = () => {
         <Form.Select
           aria-label="Default select example"
           className="select"
-          // value={selectValue}
           onChange={handleSelectChange}
         >
           <option value="">Select type of room</option>

@@ -8,7 +8,12 @@ const roomSchema = new mongoose.Schema({
   price: Number,
   image: String,
   amenities: [String],
-  bookedDates: [String],
+  bookedDates: [
+    {
+      start: String,
+      end: String,
+    },
+  ],
 });
 
 module.exports = mongoose.model("Room", roomSchema);

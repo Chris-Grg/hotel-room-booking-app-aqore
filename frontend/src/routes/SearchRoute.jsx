@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../context/SearchContext";
 import { RoomContext } from "../context/RoomContext";
 import CardList from "../components/CardList";
 import { Container } from "react-bootstrap";
-
+import axios from "axios";
 const SearchRoute = () => {
   const {
     roomType,
@@ -13,19 +13,23 @@ const SearchRoute = () => {
     setCheckOutDate,
     setRoomType,
   } = useContext(SearchContext);
-  const { rooms } = useContext(RoomContext);
+  // const { rooms } = useContext(RoomContext);
+  const [searchResult, setSearchResult] = useState([]);
+  useEffect(() => {
+    axios
+      .post("http://localhost:7000/api/search", {
+        typeId: roomType,
+        startDate: checkInDate,
+        endDate: checkOutDate,
+      })
+      .then(function (response) {
+        setSearchResult(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [checkInDate, checkOutDate, roomType]);
 
-  const searchResult = rooms.filter((i) => {
-    if (roomType && room.bookedDate) {
-      if (i.typeId === roomType) {
-        if (i.bookedDate.length > 0) {
-          if (!i.bookedDate.find((j) => j >= checkInDate && j <= checkOutDate))
-            return i;
-          else return false;
-        } else return i;
-      } else return false;
-    }
-  });
   return (
     <div>
       {searchResult.length > 0 ? (

@@ -26,7 +26,6 @@ function CardComponent({
         <Card.Text className="text-truncate">{description}</Card.Text>
       </Card.Body>
       <ListGroup className="list-group-flush">
-        <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
         <ListGroup.Item className="d-flex justify-content-between">
           <span>Price per night</span>
           <span>${price}</span>

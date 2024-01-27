@@ -1,11 +1,17 @@
+import { useContext } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Hero from "./components/Hero";
 import NavBarComponent from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import ModalComponent from "./components/ModalComponent";
+
 import SearchRoute from "./routes/SearchRoute";
 import BrowseRoute from "./routes/BrowseRoute";
-import ModalComponent from "./components/ModalComponent";
-import { useContext } from "react";
+import CartPage from "./routes/CartPage";
+
 import { ModalContext } from "./context/ModalContext";
 
 function App() {
@@ -14,11 +20,13 @@ function App() {
     <>
       <Router>
         <NavBarComponent />
+        <ToastContainer />
         <SearchBar />
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/search" element={<SearchRoute />} />
           <Route path="/browse" element={<BrowseRoute />} />
+          <Route path="/cart" element={<CartPage />} />
         </Routes>
         {activeModal ? <ModalComponent /> : <></>}
       </Router>

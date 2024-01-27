@@ -25,7 +25,7 @@ const CardList = ({ rooms }) => {
             );
           })
         ) : (
-          <h1>{rooms}</h1>
+          <h1>No Rooms Available</h1>
         )}
       </Row>
     </div>

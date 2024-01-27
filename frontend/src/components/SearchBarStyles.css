@@ -19,7 +19,7 @@
   min-height: 44px;
 }
 .select {
-  max-width: 12rem;
+  max-width: 16rem;
   min-width: 12rem;
 }
 @media screen and (max-width: 768px) {
