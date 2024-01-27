@@ -9,7 +9,6 @@ import SearchBar from "./components/SearchBar";
 import ModalComponent from "./components/ModalComponent";
 
 import SearchRoute from "./routes/SearchRoute";
-import BrowseRoute from "./routes/BrowseRoute";
 import CartPage from "./routes/CartPage";
 
 import { ModalContext } from "./context/ModalContext";
@@ -25,7 +24,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/search" element={<SearchRoute />} />
-          <Route path="/browse" element={<BrowseRoute />} />
           <Route path="/cart" element={<CartPage />} />
         </Routes>
         {activeModal ? <ModalComponent /> : <></>}

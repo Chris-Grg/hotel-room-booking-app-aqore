@@ -14,9 +14,6 @@ const NavBarComponent = () => {
         <Navbar.Brand href="/">Hotel Room Finder</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
-          <Nav className="me-auto">
-            <Link to="/browse">Browse</Link>
-          </Nav>
           <Nav className="ms-auto">
             <Link to="/cart">
               <CartFill size={20} />
