@@ -1,3 +1,18 @@
+## Brief Intro
+This is a MERN Stack App. i.e. 
+Frontend: React
+Backend: Express, Node
+Database: MongoDB
+
+Features: 
+ 1) Search Rooms based on Check-in, Check-out dates and room type
+ 2) Add Each rooms to Cart through their respective modals (by clicking on book now on their cards)
+ 3) Cart Page where all the cart items, their total and if applicable discount is subtracted and total is shown
+ 4) Further after entering payment details the room is booked.
+
+
+# Running Instructions
+
 # STEP 1
 # Start Backend
 cd backend
@@ -32,6 +47,7 @@ npm run dev
 ## 4 Proceed to checkout & fin
 
 <hr/>
+
 # API Endpoints (http://localhost:7000/)
 
 # METHOD GET
