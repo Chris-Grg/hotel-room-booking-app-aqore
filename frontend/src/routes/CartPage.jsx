@@ -78,11 +78,9 @@ const CartPage = () => {
           "http://localhost:7000/api/bookings",
           bookData
         );
-        // if (response.status === "201") {
-        toast.success("Booking Successful" + JSON.stringify(booking));
-        // }
-        console.log("Response Data:", response.data);
+        toast.success("Booking Successful");
       } catch (error) {
+        toast.error("Error creating booking");
         console.error("Error:", error);
       }
     }

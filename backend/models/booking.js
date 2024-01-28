@@ -2,18 +2,44 @@ const mongoose = require("mongoose");
 
 const bookingsSchema = new mongoose.Schema({
   userDetails: {
-    String,
+    name: { type: String, required: true, maxlength: 50 },
+    phone: { type: String, required: true },
   },
-  cartItems: [
-    {
-      String,
-    },
-  ],
-  total: Number,
+  cartItems: {
+    type: [
+      {
+        id: Number,
+        roomType: String,
+        price: Number,
+        roomNo: String,
+        checkInDate: String,
+        checkOutDate: String,
+      },
+    ],
+
+    required: true,
+  },
+
+  total: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
   cardDetails: {
-    cardNo: String,
-    cardExpiry: String,
-    cvv: String,
+    cardNo: {
+      type: String,
+      required: true,
+      maxlength: 16,
+    },
+    cardExpiry: {
+      type: String,
+      required: true,
+    },
+    cvv: {
+      type: String,
+      required: true,
+      maxlength: 3,
+    },
   },
 });
 

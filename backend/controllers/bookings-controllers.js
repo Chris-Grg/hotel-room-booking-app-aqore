@@ -1,23 +1,87 @@
 const Booking = require("../models/booking");
 const Room = require("../models/room");
+const mongoose = require("mongoose");
 
 const createBooking = async (req, res, next) => {
-  const { paymentDetails, rooms, total, cardDetails } = req.body;
+  const { userDetails, cartItems, total, cardDetails } = req.body;
 
   try {
+    // const existingBooking = await Booking.findOne({
+    //   roomNo: cartItems.roomNo,
+    //   startDate: cartItems.startDate,
+    //   endDate: cartItems.endDate,
+    // });
+    // console.log(existingBooking);
+    // if (existingBooking) {
+    //   res.status(409).json({ error: "Booking already exists for these dates" }); // Send error response
+    //   throw new Error("Booking already exists");
+    // }
+    //Create booking
     const createdBooking = new Booking({
-      paymentDetails,
-      rooms,
+      userDetails,
+      cartItems,
       total,
       cardDetails,
     });
 
     await createdBooking.save();
 
-    res.status(201).json(createdBooking);
-  } catch (err) {
-    return next(err);
+    //update rooms bookings
+    cartItems.forEach(async (cartItem) => {
+      const room = await Room.findOneAndUpdate(
+        { roomNo: cartItem.roomNo },
+        {
+          $push: {
+            bookedDates: {
+              $cond: {
+                // Check if dates already exist
+                if: {
+                  $or: [
+                    {
+                      $elemMatch: {
+                        start: cartItem.checkInDate,
+                        end: cartItem.checkOutDate,
+                      },
+                    },
+                    {
+                      $elemMatch: {
+                        start: { $lte: cartItem.checkInDate },
+                        end: { $gte: cartItem.checkInDate },
+                      },
+                    },
+                    {
+                      $elemMatch: {
+                        start: { $lte: cartItem.checkOutDate },
+                        end: { $gte: cartItem.checkOutDate },
+                      },
+                    },
+                  ],
+                },
+                then: { $exists: false }, // No Update Date exists
+                else: {
+                  start: cartItem.checkInDate,
+                  end: cartItem.checkOutDate,
+                },
+              },
+            },
+          },
+        },
+        { new: true }
+      );
+
+      if (!room) {
+        throw new Error(`Room ${cartItem.roomNo} not found`);
+      }
+    });
+  } catch (error) {
+    if (error.code === 11000 || error.code === 16837) {
+      // Duplicate key or conflict error codes
+      throw new Error("Dates already exist for this room");
+    } else {
+      next(error); // Rethrow other errors
+    }
   }
+  res.json({ message: "successfully booked" });
 };
 
 const getAllBookings = async (req, res, next) => {
