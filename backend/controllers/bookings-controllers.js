@@ -23,36 +23,8 @@ const createBooking = async (req, res, next) => {
         {
           $push: {
             bookedDates: {
-              $cond: {
-                // Check if dates already exist
-                if: {
-                  $or: [
-                    {
-                      $elemMatch: {
-                        start: cartItem.checkInDate,
-                        end: cartItem.checkOutDate,
-                      },
-                    },
-                    {
-                      $elemMatch: {
-                        start: { $lte: cartItem.checkInDate },
-                        end: { $gte: cartItem.checkInDate },
-                      },
-                    },
-                    {
-                      $elemMatch: {
-                        start: { $lte: cartItem.checkOutDate },
-                        end: { $gte: cartItem.checkOutDate },
-                      },
-                    },
-                  ],
-                },
-                then: { $exists: false }, // No Update Date exists
-                else: {
-                  start: cartItem.checkInDate,
-                  end: cartItem.checkOutDate,
-                },
-              },
+              start: cartItem.checkInDate,
+              end: cartItem.checkOutDate,
             },
           },
         },
@@ -64,12 +36,7 @@ const createBooking = async (req, res, next) => {
       }
     });
   } catch (error) {
-    if (error.code === 11000 || error.code === 16837) {
-      // Duplicate key or conflict error codes
-      throw new Error("Dates already exist for this room");
-    } else {
-      next(error); // Rethrow other errors
-    }
+    next(error); // Rethrow other errors
   }
   res.json({ message: "successfully booked" });
 };
