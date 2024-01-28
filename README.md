@@ -1,8 +1,8 @@
 ## Brief Intro
 This is a MERN Stack App. i.e. 
-Frontend: React
-Backend: Express, Node
-Database: MongoDB
+- Frontend: React
+- Backend: Express, Node
+- Database: MongoDB
 
 Features: 
  1) Search Rooms based on Check-in, Check-out dates and room type
@@ -35,7 +35,7 @@ npm install
 npm run dev
 
 # Steps
-## 1 Enter Check-in , Check-out Date & select Room Type to get available room
+## 1 Enter Check-in , Check-out Date, select Room Type and click on search button to get available room
 ![image](https://github.com/Chris-Grg/hotel-room-booking-app-aqore/assets/121335744/8c3b5363-5e61-4851-9676-b8b25442b381)
 
 ## 2 Add Room to Cart through the Modal
@@ -68,4 +68,7 @@ api/search
 ## Add new booking
 api/bookings
 
+<hr/>
 
+# Database Schema
+![image](https://github.com/Chris-Grg/hotel-room-booking-app-aqore/assets/121335744/845c754c-2a60-465f-829a-fc916aebcfcf)
