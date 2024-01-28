@@ -34,18 +34,22 @@ npm run dev
 <hr/>
 # API Endpoints (http://localhost:7000/)
 
-# GET
-## All Rooms
+# METHOD GET
+## Get All Rooms
 api/rooms
 ## Room by roomno
 api/rooms/:roomno
+## Get all bookings
+api/bookings
 
-# POST
+# METHOD POST
 ## Create new room
 api/rooms
 
 ## Find Available Rooms
 api/search
 
+## Add new booking
+api/bookings
 
 
