@@ -72,3 +72,6 @@ api/bookings
 
 # Database Schema
 ![image](https://github.com/Chris-Grg/hotel-room-booking-app-aqore/assets/121335744/845c754c-2a60-465f-829a-fc916aebcfcf)
+
+# Working Diagram
+![image](https://github.com/Chris-Grg/hotel-room-booking-app-aqore/assets/121335744/01b4b38d-654b-4240-9395-82d99af23d33)
