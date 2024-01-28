@@ -6,16 +6,6 @@ const createBooking = async (req, res, next) => {
   const { userDetails, cartItems, total, cardDetails } = req.body;
 
   try {
-    // const existingBooking = await Booking.findOne({
-    //   roomNo: cartItems.roomNo,
-    //   startDate: cartItems.startDate,
-    //   endDate: cartItems.endDate,
-    // });
-    // console.log(existingBooking);
-    // if (existingBooking) {
-    //   res.status(409).json({ error: "Booking already exists for these dates" }); // Send error response
-    //   throw new Error("Booking already exists");
-    // }
     //Create booking
     const createdBooking = new Booking({
       userDetails,

@@ -1,35 +1,5 @@
 const Room = require("../models/room");
 
-const DUMMY_ROOMS = [
-  {
-    roomtype: "deluxe",
-    roomno: "1",
-    bookedstatus: {
-      booked: true,
-      bookeddate: "21/2/2023",
-      checkoutdate: "24/2/2023",
-    },
-  },
-  {
-    roomtype: "deluxe",
-    roomno: "2",
-    bookedstatus: {
-      booked: false,
-      bookeddate: "",
-      checkoutdate: "",
-    },
-  },
-  {
-    roomtype: "deluxe",
-    roomno: "2",
-    bookedstatus: {
-      booked: false,
-      bookeddate: "",
-      checkoutdate: "",
-    },
-  },
-];
-
 const createRoom = async (req, res, next) => {
   const {
     roomNo,
@@ -82,38 +52,6 @@ const getRoomByRoomNo = async (req, res, next) => {
   res.json(room);
 };
 
-const AddBookingsById = async (req, res, next) => {
-  const { roomNo, startDate, endDate } = req.body;
-
-  try {
-    const updatedRoom = await Room.findOneAndUpdate(
-      {
-        roomNo: roomNo,
-        bookingDate: {
-          $not: {
-            $elemMatch: {
-              start: { $gte: startDate, $lte: endDate },
-              end: { $gte: startDate, $lte: endDate },
-            },
-          },
-        },
-      },
-      { $push: { bookedDates: { start: startDate, end: endDate } } },
-      { new: true }
-    );
-
-    if (!updatedRoom) {
-      return res.status(409).json({
-        message: "Booking conflict! Dates overlap with existing bookings.",
-      });
-    }
-
-    res.status(200).json(updatedRoom);
-  } catch (err) {
-    return next(err);
-  }
-};
-
 const DeleteBookingById = async (req, res, next) => {
   const { roomNo, startDate, endDate } = req.body;
 
@@ -137,5 +75,4 @@ const DeleteBookingById = async (req, res, next) => {
 exports.createRoom = createRoom;
 exports.getAllRooms = getAllRooms;
 exports.getRoomByRoomNo = getRoomByRoomNo;
-exports.AddBookingsById = AddBookingsById;
 exports.DeleteBookingById = DeleteBookingById;
