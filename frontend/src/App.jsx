@@ -12,6 +12,7 @@ import SearchRoute from "./routes/SearchRoute";
 import CartPage from "./routes/CartPage";
 
 import { ModalContext } from "./context/ModalContext";
+import SuccessFulPage from "./routes/SuccessFulPage";
 
 function App() {
   const { activeModal } = useContext(ModalContext);
@@ -25,6 +26,7 @@ function App() {
           <Route path="/" element={<Hero />} />
           <Route path="/search" element={<SearchRoute />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/success" element={<SuccessFulPage />} />
         </Routes>
         {activeModal ? <ModalComponent /> : <></>}
       </Router>

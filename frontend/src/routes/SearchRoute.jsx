@@ -13,7 +13,6 @@ const SearchRoute = () => {
     setCheckOutDate,
     setRoomType,
   } = useContext(SearchContext);
-  // const { rooms } = useContext(RoomContext);
   const [searchResult, setSearchResult] = useState([]);
   useEffect(() => {
     axios

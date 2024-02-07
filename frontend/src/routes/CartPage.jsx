@@ -6,7 +6,6 @@ import PaymentForm from "../components/PaymentForm";
 import moment from "moment";
 import { toast } from "react-toastify";
 import axios from "axios";
-
 import CartTable from "../components/CartTable";
 
 const CartPage = () => {
@@ -79,6 +78,7 @@ const CartPage = () => {
           bookData
         );
         toast.success("Booking Successful");
+        window.location.href = "/success";
       } catch (error) {
         toast.error("Error creating booking");
         console.error("Error:", error);
