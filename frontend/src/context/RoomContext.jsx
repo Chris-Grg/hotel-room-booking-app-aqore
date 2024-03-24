@@ -7,7 +7,9 @@ const RoomContextProvider = ({ children }) => {
   const [isLoading, setisLoading] = useState(true);
   useEffect(() => {
     const getRooms = async () => {
-      const res = await fetch("http://localhost:7000/api/rooms");
+      const apiUrl =
+        import.meta.env.VITE_BACKEND_API || "http://localhost:7000";
+      const res = await fetch(`${apiUrl}/api/rooms`);
       const data = await res.json();
       setRooms(data);
       setisLoading(false);

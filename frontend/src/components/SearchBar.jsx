@@ -10,14 +10,8 @@ import { SearchContext } from "../context/SearchContext";
 import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
-  const {
-    roomType,
-    checkInDate,
-    checkOutDate,
-    setCheckInDate,
-    setCheckOutDate,
-    setRoomType,
-  } = useContext(SearchContext);
+  const { roomType, setCheckInDate, setCheckOutDate, setRoomType } =
+    useContext(SearchContext);
   const navigate = useNavigate();
 
   const [startDate, setStartDate] = useState("");

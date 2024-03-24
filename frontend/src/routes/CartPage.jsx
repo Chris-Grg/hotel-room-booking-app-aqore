@@ -73,10 +73,9 @@ const CartPage = () => {
       };
       setBooking(bookData);
       try {
-        const response = await axios.post(
-          "http://localhost:7000/api/bookings",
-          bookData
-        );
+        const apiUrl =
+          import.meta.env.VITE_BACKEND_API || "http://localhost:7000";
+        const response = await axios.post(`${apiUrl}/api/bookings`, bookData);
         toast.success("Booking Successful");
         window.location.href = "/success";
       } catch (error) {

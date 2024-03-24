@@ -1,8 +1,6 @@
 import CardComponent from "./Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { RoomContext } from "../context/RoomContext";
-import { useContext } from "react";
 
 const CardList = ({ rooms }) => {
   return (

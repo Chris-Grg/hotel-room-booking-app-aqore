@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Col,
-  Container,
-  FloatingLabel,
-  Form,
-  Row,
-} from "react-bootstrap";
+import { Button, Col, FloatingLabel, Form, Row } from "react-bootstrap";
 
 const PaymentForm = ({
   handlePaymentSubmit,
@@ -28,6 +21,7 @@ const PaymentForm = ({
             className="mb-1"
             onChange={handleChange}
             required
+            autoComplete="off"
           />
         </FloatingLabel>
 
@@ -42,6 +36,7 @@ const PaymentForm = ({
             minLength={10}
             maxLength={10}
             required
+            autoComplete="off"
           />
         </FloatingLabel>
         <FloatingLabel controlId="floatingInput" label="Card Number">
@@ -55,6 +50,7 @@ const PaymentForm = ({
             value={cardDetails.cardNo}
             className="mb-1"
             required
+            autoComplete="off"
           />
         </FloatingLabel>
         <Row>
@@ -73,6 +69,7 @@ const PaymentForm = ({
                 maxLength={5}
                 className="mb-1"
                 required
+                autoComplete="off"
               />
             </FloatingLabel>
           </Col>
@@ -88,6 +85,7 @@ const PaymentForm = ({
                 maxLength={3}
                 className="mb-1"
                 required
+                autoComplete="off"
               />
             </FloatingLabel>
           </Col>

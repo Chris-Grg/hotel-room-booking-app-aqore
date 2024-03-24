@@ -1,6 +1,5 @@
 import { Container, Image } from "react-bootstrap";
 import "./HeroStyles.css";
-import Footer from "./Footer";
 
 function Hero() {
   return (

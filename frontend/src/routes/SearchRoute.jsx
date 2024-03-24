@@ -15,8 +15,9 @@ const SearchRoute = () => {
   } = useContext(SearchContext);
   const [searchResult, setSearchResult] = useState([]);
   useEffect(() => {
+    const apiUrl = import.meta.env.VITE_BACKEND_API || "http://localhost:7000";
     axios
-      .post("http://localhost:7000/api/search", {
+      .post(`${apiUrl}/api/search`, {
         typeId: roomType,
         startDate: checkInDate,
         endDate: checkOutDate,
