@@ -1,3 +1,4 @@
+Live Demo: https://hotelroomfinder.netlify.app/
 ## Brief Intro
 This is a MERN Stack App. i.e. 
 - Frontend: React
